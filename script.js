@@ -22,7 +22,7 @@ const photos = [
     "images/imagesfoto2 (6).jpeg",
     "images/imagesfoto2 (7).jpeg",
     "images/imagesfoto2 (8).jpeg",
-    "images/imagesfoto2 (9).jpeg",
+    
 
     "images/imagesfoto2 (10).jpeg",
     "images/imagesfoto2 (10).jpg",
@@ -57,7 +57,7 @@ const photos = [
     "images/imagesfoto2 (21).jpeg",
     "images/imagesfoto2 (21).jpg",
 
-    "images/imagesfoto2 (22).jpeg",
+   
     "images/imagesfoto2 (22).jpg"
 ];
 
