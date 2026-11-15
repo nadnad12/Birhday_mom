@@ -5,23 +5,66 @@ let isLoadingPhoto = false;
 
 
 // ================= DAFTAR FOTO =================
+// Sesuai dengan file yang tersedia di folder images
 
-// Total 44 foto:
-// 22 file JPG + 22 file JPEG
 const photos = [
-    ...Array.from({ length: 22 }, (_, i) =>
-        `images/imagesfoto2 (${i + 1}).jpg`
-    ),
-    ...Array.from({ length: 22 }, (_, i) =>
-        `images/imagesfoto2 (${i + 1}).jpeg`
-    )
+    "images/imagesfoto2 (1).jpeg",
+    "images/imagesfoto2 (1).jpg",
+
+    "images/imagesfoto2 (2).jpeg",
+    "images/imagesfoto2 (2).jpg",
+
+    "images/imagesfoto2 (3).jpeg",
+    "images/imagesfoto2 (3).jpg",
+
+    "images/imagesfoto2 (4).jpeg",
+    "images/imagesfoto2 (5).jpeg",
+    "images/imagesfoto2 (6).jpeg",
+    "images/imagesfoto2 (7).jpeg",
+    "images/imagesfoto2 (8).jpeg",
+    "images/imagesfoto2 (9).jpeg",
+
+    "images/imagesfoto2 (10).jpeg",
+    "images/imagesfoto2 (10).jpg",
+
+    "images/imagesfoto2 (11).jpeg",
+    "images/imagesfoto2 (11).jpg",
+
+    "images/imagesfoto2 (12).jpeg",
+    "images/imagesfoto2 (12).jpg",
+
+    "images/imagesfoto2 (13).jpeg",
+    "images/imagesfoto2 (13).jpg",
+
+    "images/imagesfoto2 (14).jpeg",
+    "images/imagesfoto2 (14).jpg",
+
+    "images/imagesfoto2 (15).jpeg",
+    "images/imagesfoto2 (15).jpg",
+
+    "images/imagesfoto2 (16).jpeg",
+    "images/imagesfoto2 (16).jpg",
+
+    "images/imagesfoto2 (17).jpeg",
+    "images/imagesfoto2 (17).jpg",
+
+    "images/imagesfoto2 (18).jpeg",
+    "images/imagesfoto2 (18).jpg",
+
+    "images/imagesfoto2 (19).jpeg",
+    "images/imagesfoto2 (20).jpeg",
+
+    "images/imagesfoto2 (21).jpeg",
+    "images/imagesfoto2 (21).jpg",
+
+    "images/imagesfoto2 (22).jpeg",
+    "images/imagesfoto2 (22).jpg"
 ];
 
 
 // ================= PENGATURAN SLIDESHOW =================
+// 5 detik per foto agar nyaman dilihat
 
-// 5 detik per foto
-// 44 foto × 5 detik = sekitar 3 menit 40 detik
 const SLIDESHOW_DELAY = 5000;
 
 
@@ -56,11 +99,17 @@ function startSurprise() {
 
     if (music) {
 
+        music.volume = 1.0;
+        music.muted = false;
         music.currentTime = 0;
 
-        music.play().catch(function (error) {
-            console.log("Musik tidak dapat diputar:", error);
-        });
+        music.play()
+            .then(() => {
+                console.log("🎵 Musik berhasil diputar");
+            })
+            .catch((error) => {
+                console.error("❌ Musik tidak dapat diputar:", error);
+            });
 
     }
 
@@ -70,7 +119,6 @@ function startSurprise() {
     startSlideshow();
 
 
-    // KEMBALI KE ATAS HALAMAN
     window.scrollTo(0, 0);
 }
 
@@ -87,7 +135,6 @@ function showPhoto() {
 
     const token = ++photoLoadToken;
     const selectedIndex = currentPhoto;
-
     const image = new Image();
 
     isLoadingPhoto = true;
@@ -97,13 +144,10 @@ function showPhoto() {
 
         if (token !== photoLoadToken) return;
 
-
         photo.src = image.src;
-
 
         counter.textContent =
             `${selectedIndex + 1} / ${photos.length}`;
-
 
         photo.style.opacity = "1";
 
@@ -116,25 +160,26 @@ function showPhoto() {
 
         if (token !== photoLoadToken) return;
 
-
         console.error(
             "Foto gagal dimuat:",
             photos[selectedIndex]
         );
 
-
         isLoadingPhoto = false;
+
+        // Jika ada foto yang gagal dimuat,
+        // otomatis lanjut ke foto berikutnya
+        setTimeout(() => {
+            nextPhoto();
+        }, 500);
 
     };
 
 
-    // EFEK MENGHILANG SEBELUM FOTO BERGANTI
+    // Efek fade sebelum foto berubah
     photo.style.opacity = "0";
 
-
-    // MEMUAT FOTO BARU
     image.src = photos[selectedIndex];
-
 }
 
 
@@ -144,13 +189,10 @@ function nextPhoto() {
 
     if (isLoadingPhoto) return;
 
-
     currentPhoto =
         (currentPhoto + 1) % photos.length;
 
-
     showPhoto();
-
 }
 
 
@@ -160,14 +202,11 @@ function previousPhoto() {
 
     if (isLoadingPhoto) return;
 
-
     currentPhoto =
         (currentPhoto - 1 + photos.length)
         % photos.length;
 
-
     showPhoto();
-
 }
 
 
@@ -192,12 +231,12 @@ function startSlideshow() {
 
     stopSlideshow();
 
+    slideshowInterval =
+        setInterval(() => {
 
-    slideshowInterval = setInterval(function () {
+            nextPhoto();
 
-        nextPhoto();
-
-    }, SLIDESHOW_DELAY);
+        }, SLIDESHOW_DELAY);
 
 }
 
@@ -208,16 +247,12 @@ function showFinalPage() {
 
     stopSlideshow();
 
-
     hideAllPages();
-
 
     document.getElementById("finalPage")
         .style.display = "flex";
 
-
     window.scrollTo(0, 0);
-
 }
 
 
