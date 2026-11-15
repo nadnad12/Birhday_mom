@@ -1,55 +1,32 @@
 let currentPhoto = 0;
-let slideshowInterval;
+let slideshowInterval = null;
+let photoLoadToken = 0;
+let isLoadingPhoto = false;
 
+
+// ================= DAFTAR FOTO =================
+
+// Total 44 foto:
+// 22 file JPG + 22 file JPEG
 const photos = [
-    "images/imagesfoto2 (1).jpg",
-    "images/imagesfoto2 (2).jpg",
-    "images/imagesfoto2 (3).jpg",
-    "images/imagesfoto2 (4).jpg",
-    "images/imagesfoto2 (5).jpg",
-    "images/imagesfoto2 (6).jpg",
-    "images/imagesfoto2 (7).jpg",
-    "images/imagesfoto2 (8).jpg",
-    "images/imagesfoto2 (9).jpg",
-    "images/imagesfoto2 (10).jpg",
-    "images/imagesfoto2 (11).jpg",
-    "images/imagesfoto2 (12).jpg",
-    "images/imagesfoto2 (13).jpg",
-    "images/imagesfoto2 (14).jpg",
-    "images/imagesfoto2 (15).jpg",
-    "images/imagesfoto2 (16).jpg",
-    "images/imagesfoto2 (17).jpg",
-    "images/imagesfoto2 (18).jpg",
-    "images/imagesfoto2 (19).jpg",
-    "images/imagesfoto2 (20).jpg",
-    "images/imagesfoto2 (21).jpg",
-    "images/imagesfoto2 (22).jpg",
-    "images/imagesfoto2 (1).jpeg",
-    "images/imagesfoto2 (2).jpeg",
-    "images/imagesfoto2 (3).jpeg",
-    "images/imagesfoto2 (4).jpeg",
-    "images/imagesfoto2 (5).jpeg",
-    "images/imagesfoto2 (6).jpeg",
-    "images/imagesfoto2 (7).jpeg",
-    "images/imagesfoto2 (8).jpeg",
-    "images/imagesfoto2 (9).jpeg",
-    "images/imagesfoto2 (10).jpeg",
-    "images/imagesfoto2 (11).jpeg",
-    "images/imagesfoto2 (12).jpeg",
-    "images/imagesfoto2 (13).jpeg",
-    "images/imagesfoto2 (14).jpeg",
-    "images/imagesfoto2 (15).jpeg",
-    "images/imagesfoto2 (16).jpeg",
-    "images/imagesfoto2 (17).jpeg",
-    "images/imagesfoto2 (18).jpeg",
-    "images/imagesfoto2 (19).jpeg",
-    "images/imagesfoto2 (20).jpeg",
-    "images/imagesfoto2 (21).jpeg",
-    "images/imagesfoto2 (22).jpeg"
+    ...Array.from({ length: 22 }, (_, i) =>
+        `images/imagesfoto2 (${i + 1}).jpg`
+    ),
+    ...Array.from({ length: 22 }, (_, i) =>
+        `images/imagesfoto2 (${i + 1}).jpeg`
+    )
 ];
 
 
-// MENYEMBUNYIKAN SEMUA HALAMAN
+// ================= PENGATURAN SLIDESHOW =================
+
+// 5 detik per foto
+// 44 foto × 5 detik = sekitar 3 menit 40 detik
+const SLIDESHOW_DELAY = 5000;
+
+
+// ================= MENYEMBUNYIKAN SEMUA HALAMAN =================
+
 function hideAllPages() {
     document.getElementById("welcomePage").style.display = "none";
     document.getElementById("memoryPage").style.display = "none";
@@ -57,29 +34,49 @@ function hideAllPages() {
 }
 
 
-// MEMBUKA KEJUTAN
+// ================= MEMBUKA KEJUTAN =================
+
 function startSurprise() {
+
+    stopSlideshow();
 
     hideAllPages();
 
     document.getElementById("memoryPage").style.display = "flex";
 
+
+    // MULAI DARI FOTO PERTAMA
+    currentPhoto = 0;
     showPhoto();
-    startSlideshow();
 
-    // Memulai musik YouTube
-    const youtubeMusic = document.getElementById("youtubeMusic");
 
-    if (youtubeMusic) {
-        youtubeMusic.src =
-            "https://www.youtube.com/embed/0Sgbj5kTg4Q?autoplay=1&loop=1&playlist=0Sgbj5kTg4Q";
+    // ================= MEMULAI MUSIK =================
+
+    const music = document.getElementById("birthdayMusic");
+
+    if (music) {
+
+        music.currentTime = 0;
+
+        music.play().catch(function (error) {
+            console.log("Musik tidak dapat diputar:", error);
+        });
+
     }
 
+
+    // ================= MEMULAI SLIDESHOW =================
+
+    startSlideshow();
+
+
+    // KEMBALI KE ATAS HALAMAN
     window.scrollTo(0, 0);
 }
 
 
-// MENAMPILKAN FOTO
+// ================= MENAMPILKAN FOTO =================
+
 function showPhoto() {
 
     const photo = document.getElementById("memoryPhoto");
@@ -87,66 +84,150 @@ function showPhoto() {
 
     if (!photo || !counter) return;
 
-    photo.style.opacity = "0";
 
-    setTimeout(() => {
+    const token = ++photoLoadToken;
+    const selectedIndex = currentPhoto;
 
-        photo.src = photos[currentPhoto];
+    const image = new Image();
+
+    isLoadingPhoto = true;
+
+
+    image.onload = function () {
+
+        if (token !== photoLoadToken) return;
+
+
+        photo.src = image.src;
+
 
         counter.textContent =
-            `${currentPhoto + 1} / ${photos.length}`;
+            `${selectedIndex + 1} / ${photos.length}`;
+
 
         photo.style.opacity = "1";
 
-    }, 300);
+        isLoadingPhoto = false;
+
+    };
+
+
+    image.onerror = function () {
+
+        if (token !== photoLoadToken) return;
+
+
+        console.error(
+            "Foto gagal dimuat:",
+            photos[selectedIndex]
+        );
+
+
+        isLoadingPhoto = false;
+
+    };
+
+
+    // EFEK MENGHILANG SEBELUM FOTO BERGANTI
+    photo.style.opacity = "0";
+
+
+    // MEMUAT FOTO BARU
+    image.src = photos[selectedIndex];
+
 }
 
 
-// FOTO SELANJUTNYA
+// ================= FOTO SELANJUTNYA =================
+
 function nextPhoto() {
 
-    currentPhoto = (currentPhoto + 1) % photos.length;
+    if (isLoadingPhoto) return;
 
-    showPhoto();
-}
-
-
-// FOTO SEBELUMNYA
-function previousPhoto() {
 
     currentPhoto =
-        (currentPhoto - 1 + photos.length) % photos.length;
+        (currentPhoto + 1) % photos.length;
+
 
     showPhoto();
+
 }
 
 
-// SLIDESHOW OTOMATIS
+// ================= FOTO SEBELUMNYA =================
+
+function previousPhoto() {
+
+    if (isLoadingPhoto) return;
+
+
+    currentPhoto =
+        (currentPhoto - 1 + photos.length)
+        % photos.length;
+
+
+    showPhoto();
+
+}
+
+
+// ================= MENGHENTIKAN SLIDESHOW =================
+
+function stopSlideshow() {
+
+    if (slideshowInterval !== null) {
+
+        clearInterval(slideshowInterval);
+
+        slideshowInterval = null;
+
+    }
+
+}
+
+
+// ================= SLIDESHOW OTOMATIS =================
+
 function startSlideshow() {
 
-    clearInterval(slideshowInterval);
+    stopSlideshow();
 
-    slideshowInterval = setInterval(() => {
+
+    slideshowInterval = setInterval(function () {
+
         nextPhoto();
-    }, 4000);
+
+    }, SLIDESHOW_DELAY);
+
 }
 
 
-// MEMBUKA PESAN UNTUK MAMA
+// ================= MEMBUKA PESAN UNTUK MAMA =================
+
 function showFinalPage() {
 
-    clearInterval(slideshowInterval);
+    stopSlideshow();
+
 
     hideAllPages();
 
-    document.getElementById("finalPage").style.display = "flex";
+
+    document.getElementById("finalPage")
+        .style.display = "flex";
+
 
     window.scrollTo(0, 0);
+
 }
 
 
-// TOMBOL AKHIR
+// ================= TOMBOL AKHIR =================
+
 function celebrateAgain() {
 
-    alert("🎉 Happy Birthday, Mom! 💙🎂\n\nI Love You So Much, Mama! 💙");
+    alert(
+        "🎉 Happy Birthday, Mom! 💙🎂\n\n" +
+        "I Love You So Much, Mama! 💙"
+    );
+
 }
