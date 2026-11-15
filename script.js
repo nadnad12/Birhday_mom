@@ -23,7 +23,29 @@ const photos = [
     "images/imagesfoto2 (19).jpg",
     "images/imagesfoto2 (20).jpg",
     "images/imagesfoto2 (21).jpg",
-    "images/imagesfoto2 (22).jpg"
+    "images/imagesfoto2 (22).jpg",
+    "images/imagesfoto2 (1).jpeg",
+    "images/imagesfoto2 (2).jpeg",
+    "images/imagesfoto2 (3).jpeg",
+    "images/imagesfoto2 (4).jpeg",
+    "images/imagesfoto2 (5).jpeg",
+    "images/imagesfoto2 (6).jpeg",
+    "images/imagesfoto2 (7).jpeg",
+    "images/imagesfoto2 (8).jpeg",
+    "images/imagesfoto2 (9).jpeg",
+    "images/imagesfoto2 (10).jpeg",
+    "images/imagesfoto2 (11).jpeg",
+    "images/imagesfoto2 (12).jpeg",
+    "images/imagesfoto2 (13).jpeg",
+    "images/imagesfoto2 (14).jpeg",
+    "images/imagesfoto2 (15).jpeg",
+    "images/imagesfoto2 (16).jpeg",
+    "images/imagesfoto2 (17).jpeg",
+    "images/imagesfoto2 (18).jpeg",
+    "images/imagesfoto2 (19).jpeg",
+    "images/imagesfoto2 (20).jpeg",
+    "images/imagesfoto2 (21).jpeg",
+    "images/imagesfoto2 (22).jpeg"
 ];
 
 
