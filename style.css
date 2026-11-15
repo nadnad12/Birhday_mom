@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #061d45, #0b4d96);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    padding: 50px 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page.active {
+    display: flex;
+}
+
+.birthday-card,
+.memory-card {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: 50px 30px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 35px;
+    box-shadow: 0 0 40px rgba(80, 170, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-family: "Pacifico", cursive;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px #77c8ff, 0 0 30px #77c8ff;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #a9d9ff;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 25px 0;
+}
+
+.intro-text {
+    color: #d3ebff;
+}
+
+.heart {
+    font-size: 55px;
+    animation: heartbeat 1.5s infinite;
+}
+
+.cake {
+    font-size: 100px;
+    margin: 25px 0;
+    animation: floatCake 3s ease-in-out infinite;
+}
+
+button {
+    border: none;
+    border-radius: 50px;
+    padding: 18px 35px;
+    margin: 15px 8px;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #5db5ff, #0874dc);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 100, 255, 0.35);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 130, 255, 0.6);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.photo-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 30px auto;
+    overflow: hidden;
+    border-radius: 25px;
+    border: 4px solid #9bd7ff;
+    box-shadow: 0 0 30px rgba(100, 190, 255, 0.5);
+}
+
+#memoryPhoto {
+    display: block;
+    width: 100%;
+    max-height: 550px;
+    object-fit: contain;
+    background: #061d45;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#photoCounter {
+    font-size: 1.3rem;
+    color: #bfe5ff;
+    font-weight: bold;
+}
+
+.special-button {
+    display: block;
+    margin: 30px auto 0;
+}
+
+.final-card {
+    max-width: 800px;
+}
+
+.special-text {
+    color: #bfe5ff;
+}
+
+.signature {
+    font-style: italic;
+    color: #d3ebff;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes floatCake {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .birthday-card,
+    .memory-card {
+        padding: 35px 18px;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    button {
+        width: 90%;
+        margin: 10px auto;
+        font-size: 1rem;
+    }
+
+    .photo-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

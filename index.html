@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday Mom 💙</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HALAMAN AWAL -->
+    <section id="welcomePage" class="page active">
+
+        <div class="birthday-card">
+
+            <div class="heart">💙</div>
+
+            <h1>Happy Birthday</h1>
+
+            <h2>My Lovely Mom 🎂</h2>
+
+            <div class="cake">🎂</div>
+
+            <p>
+                Hari ini adalah hari yang sangat spesial,
+                karena seseorang yang sangat berarti dalam hidupku
+                sedang bertambah usia. 💙
+            </p>
+
+            <p class="intro-text">
+                Ada sebuah kejutan kecil dan beberapa kenangan indah
+                yang ingin aku tunjukkan untuk Mama... ✨
+            </p>
+
+            <button onclick="startSurprise()">
+                🎁 Klik untuk Membuka Kejutan
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- HALAMAN FOTO -->
+    <section id="memoryPage" class="page">
+
+        <div class="memory-card">
+
+            <h1>Our Beautiful Memories 💙</h1>
+
+            <p class="memory-text">
+                Setiap foto menyimpan cerita dan kenangan indah
+                yang akan selalu memiliki tempat spesial di hati. 📸✨
+            </p>
+
+
+            <!-- FOTO -->
+            <div class="photo-container">
+
+                <img
+                    id="memoryPhoto"
+                    src="images/imagesfoto2 (1).jpg"
+                    alt="Kenangan bersama Mama">
+
+            </div>
+
+
+            <!-- NOMOR FOTO -->
+            <p id="photoCounter">
+                1 / 22
+            </p>
+
+
+            <!-- TOMBOL FOTO -->
+            <div class="photo-buttons">
+
+                <button onclick="previousPhoto()">
+                    ← Sebelumnya
+                </button>
+
+                <button onclick="nextPhoto()">
+                    Selanjutnya →
+                </button>
+
+            </div>
+
+
+            <!-- LANJUT KE PESAN -->
+            <button class="special-button" onclick="showFinalPage()">
+                Buka Pesan Untuk Mama 💌
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- HALAMAN AKHIR -->
+    <section id="finalPage" class="page">
+
+        <div class="birthday-card final-card">
+
+            <div class="heart">💙</div>
+
+            <h1>Untuk Mama 💙</h1>
+
+            <p>
+                Selamat ulang tahun untuk wanita yang paling berarti
+                dalam hidupku.
+            </p>
+
+            <p>
+                Terima kasih karena selalu menjadi tempat pulang,
+                sumber kekuatan, dan seseorang yang selalu memberikan
+                cinta tanpa batas.
+            </p>
+
+            <p>
+                Terima kasih untuk semua pengorbanan, kesabaran,
+                perhatian, dan kasih sayang yang mungkin tidak akan
+                pernah bisa aku balas sepenuhnya.
+            </p>
+
+            <p>
+                Mungkin aku tidak selalu pandai mengungkapkan
+                apa yang aku rasakan, tetapi aku ingin Mama tahu...
+            </p>
+
+            <h2 class="special-text">
+                Aku sangat bersyukur memiliki Mama dalam hidupku. 💙
+            </h2>
+
+            <p>
+                Semoga Mama selalu diberikan kesehatan, kebahagiaan,
+                umur panjang, dan selalu dikelilingi oleh
+                orang-orang yang menyayangi Mama. ✨
+            </p>
+
+            <h1 class="love">
+                I Love You So Much, Mom 💙
+            </h1>
+
+            <p class="signature">
+                With all my love 💌<br>
+                Your Child 💙
+            </p>
+
+            <button onclick="celebrateAgain()">
+                🎉 Happy Birthday, Mom!
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- MUSIK DARI YOUTUBE -->
+    <iframe
+        id="youtubeMusic"
+        width="300"
+        height="170"
+        src=""
+        title="Musik untuk Mama"
+        allow="autoplay; encrypted-media"
+        style="border: 0; margin-top: 20px;">
+    </iframe>
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
